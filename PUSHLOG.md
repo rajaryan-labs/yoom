@@ -108,9 +108,24 @@ zoom-clone/
 
 ---
 
+### Push #6 — 2026-06-09
+**Commit**: `feat: improve MobileNav with hamburger trigger, logo link, and sheet content`
+**Hash**: *(pending)*
+
+**What Changed**:
+- `MobileNav.tsx` — replaced placeholder `SheetTrigger` with hamburger SVG image trigger; added logo + brand link inside sheet; structured scrollable nav content area
+
+**Files Changed**:
+- `components/MobileNav.tsx` ← modified (hamburger trigger, logo, sheet content layout)
+- `PUSHLOG.md` ← modified
+
+**Status After Push**: MobileNav sheet now opens with hamburger icon and shows proper logo/brand inside. Nav links wiring is next.
+
+---
+
 ### Push #5 — 2026-06-07
 **Commit**: `feat: build Navbar, MobileNav, home dashboard, and styled route pages`
-**Hash**: `(pending)`
+**Hash**: `290832c`
 
 **What Changed**:
 - `Navbar.tsx` — full implementation with logo, user profile avatar, and mobile hamburger toggle
@@ -223,5 +238,5 @@ zoom-clone/
 
 ---
 
-*Last updated: Push #5 — 2026-06-07*
-*Next goal: Authentication (Clerk) + Sign-in / Sign-up pages*
+*Last updated: Push #6 — 2026-06-09*
+*Next goal: Wire MobileNav sidebar links + Authentication (Clerk) + Sign-in / Sign-up pages*
