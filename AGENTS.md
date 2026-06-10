@@ -95,6 +95,14 @@ src={{link.imgUrl}}
 ### 8. No Placeholders
 Do not leave stub components or empty files unless explicitly scaffolding. Every file must have working code with proper imports.
 
+### 9. Middleware File Is `proxy.ts` — Not `middleware.ts` ⚠️
+Next.js 16 **deprecated** `middleware.ts` and renamed it to `proxy.ts`. Using `middleware.ts` will cause a runtime error if `proxy.ts` also exists.
+```
+✅ proxy.ts       ← correct filename at project root
+❌ middleware.ts   ← deprecated, do NOT create this file
+```
+The Clerk integration exports go in `proxy.ts` using `clerkMiddleware` from `@clerk/nextjs/server`.
+
 ---
 
 ## 🗂️ Project Structure
@@ -126,6 +134,7 @@ zoom-clone/
 ├── public/
 │   ├── icons/                    ← ✅ 19 SVGs
 │   └── images/                   ← ✅ avatars + hero-background
+├── proxy.ts                      ← ✅ Next.js 16 middleware (NOT middleware.ts)
 ├── AGENTS.md                     ← ✅ This file
 ├── CLAUDE.md                     ← ✅ LLM project context
 └── PUSHLOG.md                    ← ✅ Push history & state
@@ -213,4 +222,4 @@ import { sidebarLinks } from "@/constants";
 
 ---
 
-*Last updated: 2026-06-07 — Push #4*
+*Last updated: 2026-06-11 — Push #5 | Added Rule 9: proxy.ts convention*
