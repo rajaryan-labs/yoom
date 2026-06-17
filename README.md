@@ -1,6 +1,6 @@
-# Streamline Conferencing 🎥
+# Yoom 🎥
 
-**Streamline Conferencing** is a modern, real-time video conferencing application designed to replicate the core experience of Zoom. Built on a cutting-edge frontend stack, it features seamless route dynamics, custom theme integration, and high-performance layouts.
+**Yoom** is a modern, real-time video conferencing application designed to replicate the core experience of Zoom. Built on a cutting-edge frontend stack, it features seamless route dynamics, custom theme integration, and high-performance layouts.
 
 ---
 
@@ -29,7 +29,7 @@
 
 ## 📂 Project Structure
 ```text
-streamline-conferencing/
+yoom/
 ├── app/
 │   ├── (auth)/                  # Authentication views (sign-in, sign-up)
 │   ├── (root)/
@@ -64,8 +64,8 @@ Make sure you have Node.js (v18.x or higher) installed.
 ### 2. Clone and Install
 Clone this repository to your local machine and install the dependencies:
 ```bash
-git clone https://github.com/your-username/streamline-conferencing.git
-cd streamline-conferencing
+git clone https://github.com/your-username/yoom.git
+cd yoom
 npm install
 ```
 

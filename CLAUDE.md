@@ -1,4 +1,4 @@
-# 🎯 Project Context — Streamline Conferencing (Zoom Clone)
+# 🎯 Project Context — Yoom (Zoom Clone)
 
 > This file is **auto-maintained** and committed to the repo.
 > It is designed for LLMs and developers to get instant full project context.
@@ -17,7 +17,7 @@
 | Shadcn UI | **base-nova** | `components.json` config, Lucide icons |
 | Node.js | ≥18.x | |
 | OS / Shell | Windows / PowerShell | Use `;` not `&&` |
-| Repo | https://github.com/rajaryan-labs/streamline-conferencing | Branch: `main` |
+| Repo | https://github.com/rajaryan-labs/yoom | Branch: `main` |
 
 ---
 
@@ -196,7 +196,7 @@ export function cn(...inputs: ClassValue[]) {
 
 ### ✅ Done
 - [x] Next.js 16.2.7 + React 19 + Tailwind v4 + TypeScript scaffolded
-- [x] Root layout with title `"Streamline Conferencing"`
+- [x] Root layout with title `"Yoom"`
 - [x] Home layout shell (Navbar + Sidebar + content area)
 - [x] `Sidebar.tsx` — dynamic active route highlighting with icons
 - [x] `constants/index.ts` — 5 sidebar navigation links

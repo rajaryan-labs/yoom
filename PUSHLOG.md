@@ -1,4 +1,4 @@
-# 📦 Push Log — Streamline Conferencing
+# 📦 Push Log — Yoom
 
 > This file is **committed to the repository** and updated on every push.
 > Its purpose is to give any developer or AI model instant project context
@@ -10,14 +10,14 @@
 
 | Key | Value |
 |---|---|
-| **Project** | Streamline Conferencing (Zoom Clone) |
+| **Project** | Yoom (Zoom Clone) |
 | **Framework** | Next.js 16.2.7 (App Router) |
 | **React** | 19.2.4 |
 | **Styling** | Tailwind CSS v4 (`@theme` in `globals.css`) |
 | **UI Library** | Shadcn UI (`base-nova` style, Lucide icons) |
 | **Language** | TypeScript ^5 |
 | **OS / Shell** | Windows / PowerShell (use `;` not `&&`) |
-| **Repo** | https://github.com/rajaryan-labs/streamline-conferencing |
+| **Repo** | https://github.com/rajaryan-labs/yoom |
 | **Branch** | `main` |
 
 ---
@@ -81,7 +81,7 @@ zoom-clone/
 ### ✅ Done
 - [x] Project scaffolded with Next.js 16.2.7, React 19, Tailwind v4, TypeScript
 - [x] Shadcn UI configured (`base-nova` style, Lucide icons, `components.json`)
-- [x] Root layout with `"Streamline Conferencing"` metadata title
+- [x] Root layout with `"Yoom"` metadata title
 - [x] Home layout shell: `<Navbar />` + `<Sidebar />` + content area
 - [x] `Sidebar.tsx` — dynamic, client-side, active route highlighting
 - [x] `constants/index.ts` — sidebar link definitions (5 routes)
@@ -213,7 +213,7 @@ zoom-clone/
 **Hash**: `8172bac`
 
 **What Changed**:
-- Updated metadata title in `app/layout.tsx` to `"Streamline Conferencing"`
+- Updated metadata title in `app/layout.tsx` to `"Yoom"`
 - Integrated `<Navbar />` and `<Sidebar />` into the home layout
 - Created `components/Navbar.tsx` (skeleton)
 - Created `components/Sidebar.tsx` with dynamic active route logic
@@ -321,5 +321,30 @@ zoom-clone/
 
 ---
 
-*Last updated: Push #10 — 2026-06-11*
+### Push #11 — 2026-06-18
+**Commit**: `chore: rename project to Yoom and clean up layout/imports`
+
+**What Changed**:
+- Globally renamed project from "Streamline Conferencing" to "Yoom" across all docs and UI
+- `app/layout.tsx` — removed unused Clerk imports (`Show`, `SignInButton`, `SignUpButton`, `UserButton`); updated metadata title to `"Yoom"` with a proper description; simplified `<html>` and `<body>` class attributes
+- `components/Navbar.tsx` — removed stray `ClerkProvider` import; updated logo `alt` text and brand name to "Yoom"
+- `app/(root)/(home)/upcoming/page.tsx` — fixed typo "Meeetings" → "Meetings"
+- `app/globals.css` — updated `:root` `--background` to `#161925` (dark-2) and `--foreground` to near-white for better dark mode baseline
+- `AGENTS.md`, `CLAUDE.md`, `PUSHLOG.md`, `README.md` — updated all references from old name/repo URL to "Yoom"
+
+**Files Changed**:
+- `app/layout.tsx` ← modified (clean imports, Yoom metadata)
+- `components/Navbar.tsx` ← modified (removed ClerkProvider import, Yoom branding)
+- `app/(root)/(home)/upcoming/page.tsx` ← modified (typo fix)
+- `app/globals.css` ← modified (dark background/foreground defaults)
+- `AGENTS.md` ← modified (Yoom name + timestamp)
+- `CLAUDE.md` ← modified (Yoom name + repo URL)
+- `PUSHLOG.md` ← modified (Yoom name + Push #11 entry)
+- `README.md` ← modified (Yoom name + repo path)
+
+**Status After Push**: Project fully rebranded to Yoom. Codebase is clean with no leftover "Streamline Conferencing" references in committed files.
+
+---
+
+*Last updated: Push #11 — 2026-06-18*
 *Next goal: Stream SDK integration for real-time video/audio*

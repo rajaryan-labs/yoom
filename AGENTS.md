@@ -4,7 +4,7 @@
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
 <!-- END:nextjs-agent-rules -->
 
-# Agent Guidelines — Streamline Conferencing (Zoom Clone)
+# Agent Guidelines — Yoom (Zoom Clone)
 
 > This file is **auto-maintained** and committed to the repo.
 > It is the single source of truth for any AI agent working on this project.
@@ -222,4 +222,4 @@ import { sidebarLinks } from "@/constants";
 
 ---
 
-*Last updated: 2026-06-11 — Push #5 | Added Rule 9: proxy.ts convention*
+*Last updated: 2026-06-18 — Push #11 | Project renamed from Streamline Conferencing to Yoom*
