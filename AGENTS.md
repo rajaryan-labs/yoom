@@ -111,22 +111,29 @@ The Clerk integration exports go in `proxy.ts` using `clerkMiddleware` from `@cl
 zoom-clone/
 ├── app/
 │   ├── (auth)/
-│   │   ├── sign-in/              ← 🔴 Needs page.tsx
-│   │   └── sign-up/              ← 🔴 Needs page.tsx
+│   │   ├── sign-in/[[...sign-in]]/ ← ✅ Clerk SignIn page
+│   │   └── sign-up/[[...sign-up]]/ ← ✅ Clerk SignUp page
 │   ├── (root)/
-│   │   ├── layout.tsx            ← ✅ Minimal wrapper
+│   │   ├── layout.tsx            ← ✅ Minimal root group wrapper
 │   │   ├── (home)/
 │   │   │   ├── layout.tsx        ← ✅ Navbar + Sidebar shell
-│   │   │   └── page.tsx          ← 🔴 Stub — needs dashboard UI
+│   │   │   ├── page.tsx          ← ✅ Dashboard (imports HomeHero)
+│   │   │   ├── upcoming/page.tsx ← ✅ Styled stub page
+│   │   │   ├── previous/page.tsx ← ✅ Styled stub page
+│   │   │   ├── recordings/page.tsx ← ✅ Styled stub page
+│   │   │   └── personal-room/page.tsx ← ✅ Styled stub page
 │   │   └── meeting/[id]/
-│   │       └── page.tsx          ← ✅ Async params correctly used
+│   │       └── page.tsx          ← ✅ Async params correctly awaited
 │   ├── globals.css               ← ✅ Tailwind v4 @theme tokens
-│   └── layout.tsx                ← ✅ Root layout + metadata
+│   └── layout.tsx                ← ✅ Root layout + ClerkProvider
 ├── components/
-│   ├── Navbar.tsx                ← 🔴 Stub — needs full build
-│   ├── Sidebar.tsx               ← ✅ Fully functional
+│   ├── HomeHero.tsx              ← ✅ "use client" — live clock hero banner
+│   ├── Navbar.tsx                ← ✅ Full build (logo, avatar, Clerk auth UI)
+│   ├── MobileNav.tsx             ← ✅ Sheet-based mobile nav drawer
+│   ├── Sidebar.tsx               ← ✅ Fully functional with active route
 │   └── ui/
-│       └── button.tsx            ← ✅ CVA-based button
+│       ├── button.tsx            ← ✅ CVA-based button
+│       └── sheet.tsx             ← ✅ Shadcn Sheet component
 ├── constants/
 │   └── index.ts                  ← ✅ sidebarLinks (5 routes)
 ├── lib/
@@ -149,6 +156,7 @@ zoom-clone/
 | `--color-dark-1` | `#1c1f2e` | `bg-dark-1` | Sidebar, card backgrounds |
 | `--color-dark-2` | `#161925` | `bg-dark-2` | App body background |
 | `--color-blue-1` | `#0e78f9` | `bg-blue-1` | Active states, CTA buttons |
+| `--color-sky-1`  | `#c9ddff` | `text-sky-1` | Date/time accent text in hero |
 
 ---
 
@@ -222,4 +230,4 @@ import { sidebarLinks } from "@/constants";
 
 ---
 
-*Last updated: 2026-06-18 — Push #11 | Project renamed from Streamline Conferencing to Yoom*
+*Last updated: 2026-06-21 — Push #12 | Live clock hero added (`HomeHero.tsx`), `sky-1` color token, glassmorphism utilities*

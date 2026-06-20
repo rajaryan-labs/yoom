@@ -50,22 +50,29 @@ No `tailwind.config.js`. Custom tokens live in `globals.css`:
 zoom-clone/
 ├── app/
 │   ├── (auth)/
-│   │   ├── sign-in/              ← 🔴 Empty — needs page.tsx
-│   │   └── sign-up/              ← 🔴 Empty — needs page.tsx
+│   │   ├── sign-in/[[...sign-in]]/ ← ✅ Clerk SignIn page
+│   │   └── sign-up/[[...sign-up]]/ ← ✅ Clerk SignUp page
 │   ├── (root)/
 │   │   ├── layout.tsx            ← ✅ Minimal root group wrapper
 │   │   ├── (home)/
 │   │   │   ├── layout.tsx        ← ✅ Navbar + Sidebar + content shell
-│   │   │   └── page.tsx          ← 🔴 Stub (<div>Home</div>)
+│   │   │   ├── page.tsx          ← ✅ Dashboard (imports HomeHero)
+│   │   │   ├── upcoming/page.tsx ← ✅ Styled stub page
+│   │   │   ├── previous/page.tsx ← ✅ Styled stub page
+│   │   │   ├── recordings/page.tsx ← ✅ Styled stub page
+│   │   │   └── personal-room/page.tsx ← ✅ Styled stub page
 │   │   └── meeting/[id]/
 │   │       └── page.tsx          ← ✅ Async params correctly awaited
-│   ├── globals.css               ← ✅ @theme tokens + base styles
-│   └── layout.tsx                ← ✅ Root HTML, fonts, metadata
+│   ├── globals.css               ← ✅ @theme tokens + glassmorphism utilities
+│   └── layout.tsx                ← ✅ Root HTML, fonts, ClerkProvider
 ├── components/
-│   ├── Navbar.tsx                ← 🔴 Stub — full build pending
+│   ├── HomeHero.tsx              ← ✅ "use client" — live clock + hero banner
+│   ├── Navbar.tsx                ← ✅ Full build (logo, Clerk auth UI)
+│   ├── MobileNav.tsx             ← ✅ Sheet-based mobile nav drawer
 │   ├── Sidebar.tsx               ← ✅ Complete, active route, icons
 │   └── ui/
-│       └── button.tsx            ← ✅ CVA-based Shadcn-style button
+│       ├── button.tsx            ← ✅ CVA-based Shadcn-style button
+│       └── sheet.tsx             ← ✅ Shadcn Sheet component
 ├── constants/
 │   └── index.ts                  ← ✅ sidebarLinks (5 nav routes)
 ├── lib/
@@ -73,6 +80,7 @@ zoom-clone/
 ├── public/
 │   ├── icons/                    ← ✅ 19 SVG icons
 │   └── images/                   ← ✅ 5 avatars + hero-background.png
+├── proxy.ts                      ← ✅ Clerk auth proxy (Next.js 16 convention)
 ├── AGENTS.md                     ← ✅ AI coding rules
 ├── CLAUDE.md                     ← ✅ This file
 └── PUSHLOG.md                    ← ✅ Full push history
@@ -88,6 +96,13 @@ zoom-clone/
 | `dark-1` | `#1c1f2e` | `bg-dark-1` | Sidebar, cards |
 | `dark-2` | `#161925` | `bg-dark-2` | Body background |
 | `blue-1` | `#0e78f9` | `bg-blue-1` | Active states, CTAs |
+| `sky-1`  | `#c9ddff` | `text-sky-1` | Date/time accent in hero |
+
+### Custom Utilities (globals.css)
+- `.glassmorphism`  — `rgba(255,255,255,0.25)` + `blur(4px)` — light frosted glass
+- `.glassmorphism2` — `rgba(18,17,17,0.25)` + `blur(8px)` — dark frosted glass
+- `.flex-between`   — `flex justify-between items-center`
+- `.flex-center`    — `flex justify-center items-center`
 
 ### Theme
 - Dark mode by default
@@ -196,23 +211,28 @@ export function cn(...inputs: ClassValue[]) {
 
 ### ✅ Done
 - [x] Next.js 16.2.7 + React 19 + Tailwind v4 + TypeScript scaffolded
-- [x] Root layout with title `"Yoom"`
+- [x] Root layout with title `"Yoom"` + ClerkProvider
 - [x] Home layout shell (Navbar + Sidebar + content area)
 - [x] `Sidebar.tsx` — dynamic active route highlighting with icons
 - [x] `constants/index.ts` — 5 sidebar navigation links
-- [x] `globals.css` — `dark-1`, `dark-2`, `blue-1` color tokens
+- [x] `globals.css` — `dark-1`, `dark-2`, `blue-1`, `sky-1` color tokens
+- [x] `globals.css` — `.glassmorphism`, `.glassmorphism2`, `.flex-between`, `.flex-center` utilities
 - [x] `meeting/[id]/page.tsx` — async params correctly implemented
 - [x] Public assets: 19 icons + 6 images
 - [x] `lib/utils.ts` — `cn()` helper
 - [x] `components/ui/button.tsx` — CVA button
+- [x] `Navbar.tsx` — logo, Clerk auth UI (UserButton, SignIn/SignUp buttons)
+- [x] `MobileNav.tsx` — Sheet-based mobile navigation drawer
+- [x] `components/ui/sheet.tsx` — Shadcn Sheet component
+- [x] `/upcoming`, `/previous`, `/recordings`, `/personal-room` — styled stub pages
+- [x] Clerk auth installed: `ClerkProvider`, `proxy.ts`, sign-in/sign-up pages
+- [x] `proxy.ts` — `async` clerkMiddleware with `await auth.protect()`
+- [x] `HomeHero.tsx` — `"use client"` live clock component (updates every second)
+- [x] `app/(root)/(home)/page.tsx` — Server Component wrapping `<HomeHero />`
 
 ### 🔴 Pending
-- [ ] `Navbar.tsx` — logo, user profile, mobile menu toggle
-- [ ] Mobile Navigation — hamburger sheet/drawer
-- [ ] Home dashboard — clock, hero background, quick action buttons
-- [ ] Route pages: `/upcoming`, `/previous`, `/recordings`, `/personal-room`
-- [ ] Auth pages: `/sign-in`, `/sign-up`
-- [ ] Authentication setup (Clerk or similar)
+- [ ] Meeting room functionality
+- [ ] Real-time video/audio (Stream SDK integration)
 
 ---
 
@@ -228,5 +248,5 @@ export function cn(...inputs: ClassValue[]) {
 
 ---
 
-*Last updated: 2026-06-07 — Push #4*
-*Next goal: Build Navbar + Mobile Navigation + Home Dashboard*
+*Last updated: 2026-06-21 — Push #12 | `HomeHero.tsx` live clock, `sky-1` token, glassmorphism utilities*
+*Next goal: Stream SDK integration for real-time video/audio*

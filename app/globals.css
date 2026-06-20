@@ -1,14 +1,100 @@
+/*
+ * app/globals.css — GLOBAL STYLES & DESIGN SYSTEM
+ *
+ * This file is the ONLY CSS file in the project.
+ * It's imported in app/layout.tsx and applies to every page.
+ *
+ * FILE STRUCTURE:
+ *   1. @import           → Load Tailwind v4 + animation library
+ *   2. @custom-variant   → Define the "dark" variant
+ *   3. @theme            → Our design tokens (colors, fonts, background images)
+ *   4. :root             → CSS custom properties for light mode
+ *   5. .dark             → CSS custom properties for dark mode overrides
+ *   6. @layer base       → Global element resets and defaults
+ *   7. @layer utilities  → Custom utility classes (.flex-between, .flex-center)
+ *   8. Clerk icon fix    → Forces GitHub SVG icon to be visible
+ *
+ * ─────────────────────────────────────────────────────────────────────────────
+ * TAILWIND v4 KEY DIFFERENCE FROM v3:
+ * ─────────────────────────────────────────────────────────────────────────────
+ *   v3: Used `tailwind.config.js` for custom tokens
+ *   v4: Everything is defined here in CSS using @theme
+ *
+ * NAMING CONVENTION (how tokens become Tailwind classes):
+ *   --color-{name}            → bg-{name}, text-{name}, border-{name}
+ *   --font-{name}             → font-{name}
+ *   --radius-{name}           → rounded-{name}
+ *   --background-image-{name} → bg-{name}
+ *
+ * Examples from this file:
+ *   --color-dark-1        → bg-dark-1, text-dark-1
+ *   --color-blue-1        → bg-blue-1, text-blue-1
+ *   --background-image-hero → bg-hero
+ */
+
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/* 1. IMPORTS                                                                  */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Load the entire Tailwind CSS framework (v4 — imported as a CSS file, not via PostCSS config) */
 @import "tailwindcss";
+
+/* tw-animate-css: Pre-built CSS keyframe animations for Tailwind.
+   Provides classes like animate-fade-in, animate-slide-up, etc.
+   Used by Shadcn UI components for smooth enter/exit animations. */
 @import "tw-animate-css";
 
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/* 2. DARK MODE VARIANT                                                        */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+
+/*
+ * @custom-variant dark (&:is(.dark *))
+ *
+ * This tells Tailwind HOW dark mode works in our app.
+ * We're using "class strategy" — dark mode activates when any ancestor
+ * element has the `.dark` class (e.g. <html class="dark">).
+ *
+ * This enables Tailwind's `dark:` prefix:
+ *   dark:bg-gray-900  → only applies when .dark class is on a parent
+ */
 @custom-variant dark (&:is(.dark *));
 
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/* 3. DESIGN TOKENS (@theme)                                                   */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+
+/*
+ * @theme — Tailwind v4's way to define design tokens.
+ * Variables defined here become Tailwind utility classes automatically.
+ *
+ * `inline` keyword means: apply these tokens directly without creating
+ * extra CSS layers. This is the recommended mode for most use cases.
+ *
+ * ──────────────────────────────────────────────────────────────────────────
+ * PATTERN: many tokens here are "bridges" — they reference :root variables
+ * using var(). This is a two-layer system:
+ *   Layer 1 (here, @theme):  --color-background: var(--background)
+ *   Layer 2 (:root below):   --background: #161925
+ *
+ * WHY TWO LAYERS?
+ * The :root layer can be OVERRIDDEN per theme (.dark class), so dark mode
+ * just changes the :root values and all the @theme mappings update automatically.
+ * ──────────────────────────────────────────────────────────────────────────
+ */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  /* ── Color bridges (Shadcn UI semantic colors) ───────────────────────── */
+  /* These map Tailwind class names to CSS variables that change per theme.  */
+  --color-background: var(--background); /* bg-background */
+  --color-foreground: var(--foreground); /* text-foreground */
+
+  /* ── Font bridges ─────────────────────────────────────────────────────── */
+  /* `--font-geist-sans` is injected by next/font in layout.tsx as a CSS var */
+  --font-sans: var(--font-sans); /* font-sans */
+  --font-mono: var(--font-geist-mono); /* font-mono */
+  --font-heading: var(--font-sans); /* font-heading */
+
+  /* ── Sidebar colors (used by Shadcn Sidebar component) ───────────────── */
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -17,18 +103,22 @@
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar: var(--sidebar);
+
+  /* ── Chart / data viz colors ─────────────────────────────────────────── */
   --color-chart-5: var(--chart-5);
   --color-chart-4: var(--chart-4);
   --color-chart-3: var(--chart-3);
   --color-chart-2: var(--chart-2);
   --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
+
+  /* ── UI element colors ───────────────────────────────────────────────── */
+  --color-ring: var(--ring); /* Focus ring color */
+  --color-input: var(--input); /* Input field border */
+  --color-border: var(--border); /* General border color */
+  --color-destructive: var(--destructive); /* Red for errors/delete */
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
+  --color-muted-foreground: var(--muted-foreground); /* Dimmed text */
   --color-muted: var(--muted);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
@@ -38,43 +128,78 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
-  --color-dark-1: #1c1f2e;
-  --color-dark-2: #161925;
-  --color-blue-1: #0e78f9;
+
+  /* ── Border radius scale ─────────────────────────────────────────────── */
+  /* `--radius` base value is set in :root below (0.625rem = 10px).
+     All other sizes are calculated from it using calc(). */
+  --radius-sm: calc(var(--radius) * 0.6); /* rounded-sm */
+  --radius-md: calc(var(--radius) * 0.8); /* rounded-md */
+  --radius-lg: var(--radius); /* rounded-lg */
+  --radius-xl: calc(var(--radius) * 1.4); /* rounded-xl */
+  --radius-2xl: calc(var(--radius) * 1.8); /* rounded-2xl */
+  --radius-3xl: calc(var(--radius) * 2.2); /* rounded-3xl */
+  --radius-4xl: calc(var(--radius) * 2.6); /* rounded-4xl */
+
+  /* ── YOOM BRAND COLORS ───────────────────────────────────────────────── */
+  /* These are our custom app colors — NOT referenced via :root variables.   */
+  /* They're direct hex values that don't change between light/dark mode.    */
+  --color-dark-1: #1c1f2e; /* bg-dark-1 → Sidebar, card backgrounds      */
+  --color-dark-2: #161925; /* bg-dark-2 → Main app background             */
+  --color-blue-1: #0e78f9; /* bg-blue-1 → Active states, CTA buttons      */
+  --color-sky-1: #c9ddff;  /* bg-sky-1  → Date/time accent text            */
+
+  /* ── BACKGROUND IMAGES ───────────────────────────────────────────────── */
+  /* Naming: --background-image-{name} → generates bg-{name} utility class  */
+  /* In v3 this was in tailwind.config.js under theme.extend.backgroundImage */
+  --background-image-hero: url("/images/hero-background.png"); /* bg-hero */
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/* 4. :root — CSS CUSTOM PROPERTIES (Light Mode Defaults)                     */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+
+/*
+ * These are the raw CSS custom properties that @theme variables reference.
+ * Defined in :root so they're available globally.
+ *
+ * oklch() — A modern color format (better than hex for color calculations).
+ * Format: oklch(lightness chroma hue)
+ *   - lightness: 0 (black) to 1 (white)
+ *   - chroma: 0 (gray) to ~0.37 (vivid)
+ *   - hue: 0-360 degrees (color wheel)
+ *
+ * oklch(0.985 0 0) = very light gray (almost white), 0 chroma = gray
+ * oklch(0.145 0 0) = very dark gray (almost black)
+ */
 :root {
-  --background: #161925;
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(1 0 0);
+  --background: #161925; /* App body background (our dark navy) */
+  --foreground: oklch(0.985 0 0); /* Primary text (near white) */
+  --card: oklch(1 0 0); /* Card background (pure white in light mode) */
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
+  --primary: oklch(0.205 0 0); /* Primary interactive elements */
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
+  --muted: oklch(0.97 0 0); /* Muted/subdued backgrounds */
+  --muted-foreground: oklch(0.556 0 0); /* Placeholder text, secondary labels */
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
+  --destructive: oklch(
+    0.577 0.245 27.325
+  ); /* Red-ish for delete/error states */
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --ring: oklch(0.708 0 0); /* Focus ring color */
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
+  --radius: 0.625rem; /* Base border radius (10px) */
+
+  /* Shadcn Sidebar component colors */
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -85,6 +210,18 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/* 5. .dark — DARK MODE OVERRIDES                                              */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+
+/*
+ * When the `.dark` class is added to <html> (or any ancestor element),
+ * these values override the :root values above.
+ *
+ * Our app is effectively always dark (bg-dark-2 is hardcoded on <body>).
+ * This .dark class block is here for Shadcn UI components that
+ * internally rely on it for their color scheme.
+ */
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
@@ -101,7 +238,7 @@
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
+  --border: oklch(1 0 0 / 10%); /* oklch with alpha: white at 10% opacity */
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
   --chart-1: oklch(0.87 0 0);
@@ -111,7 +248,7 @@
   --chart-5: oklch(0.269 0 0);
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary: oklch(0.488 0.243 264.376); /* Blue hue in dark mode */
   --sidebar-primary-foreground: oklch(0.985 0 0);
   --sidebar-accent: oklch(0.269 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
@@ -119,28 +256,97 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/* 6. @layer base — GLOBAL ELEMENT RESETS                                      */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+
+/*
+ * @layer base — Applied to plain HTML elements (no class needed).
+ * @apply — Tailwind directive: applies utility classes inside regular CSS.
+ *
+ * Layers in Tailwind v4:
+ *   base < components < utilities
+ * Utilities always win over base, so these defaults are safely overridable.
+ */
 @layer base {
+  /* Apply a border color and outline to ALL elements by default */
   * {
     @apply border-border outline-ring/50;
+    /* border-border   → uses --color-border CSS variable for all borders */
+    /* outline-ring/50 → focus outlines use ring color at 50% opacity */
   }
+
+  /* Set the default background and text color on the page body */
   body {
     @apply bg-background text-foreground;
+    /* bg-background  → var(--background) = #161925 (our dark navy) */
+    /* text-foreground → var(--foreground) = near-white */
   }
+
+  /* Apply our custom font to the entire document */
   html {
     @apply font-sans;
+    /* font-sans → var(--font-sans) → the Geist font loaded in layout.tsx */
   }
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/* 7. @layer utilities — CUSTOM UTILITY CLASSES                                */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+
+/*
+ * @layer utilities — Custom utility classes that extend Tailwind.
+ * These work exactly like Tailwind's built-in utilities (same specificity).
+ *
+ * We define shorthand classes here for patterns we use repeatedly.
+ * This avoids writing the same 3 CSS properties every time.
+ */
 @layer utilities {
+  /*
+   * .flex-between — Flexbox row with items spaced at opposite ends.
+   * Usage: <nav className="flex-between"> pushes logo left, buttons right.
+   *
+   * Equivalent to: flex justify-between items-center
+   */
   .flex-between {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
+  /*
+   * .flex-center — Flexbox row with items centered both horizontally and vertically.
+   * Usage: <div className="flex-center h-screen"> to center page content.
+   *
+   * Equivalent to: flex justify-center items-center
+   */
   .flex-center {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  /*
+   * .glassmorphism — Frosted-glass card effect (light variant).
+   * Used on the "Upcoming Meeting" pill on the hero banner.
+   *
+   * rgba(255,255,255,0.25) + blur(4px) = subtle white glass
+   */
+  .glassmorphism {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  /*
+   * .glassmorphism2 — Frosted-glass card effect (dark variant).
+   * Used for darker UI panels that still need the glass aesthetic.
+   *
+   * rgba(18,17,17,0.25) + blur(8px) = stronger dark glass
+   */
+  .glassmorphism2 {
+    background: rgba(18, 17, 17, 0.25);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
 }

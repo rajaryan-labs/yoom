@@ -346,5 +346,26 @@ zoom-clone/
 
 ---
 
-*Last updated: Push #11 — 2026-06-18*
+### Push #12 — 2026-06-21
+**Commit**: `feat: add live clock hero (HomeHero.tsx), sky-1 token, and glassmorphism utilities`
+
+**What Changed**:
+- `components/HomeHero.tsx` — new `"use client"` component; renders the hero banner with a live clock (ticks every second via `setInterval`) and formatted date; uses `.glassmorphism` pill for the upcoming meeting label and `text-sky-1` for the date
+- `app/(root)/(home)/page.tsx` — refactored from a static stub to a clean Server Component that imports `<HomeHero />`; keeps page.tsx free of hooks
+- `app/globals.css` — added `--color-sky-1: #c9ddff` design token; added `.glassmorphism` and `.glassmorphism2` utility classes to `@layer utilities`
+- `AGENTS.md`, `CLAUDE.md`, `PUSHLOG.md` — fully updated: file structure, design tokens table, built/pending status, timestamps
+
+**Files Changed**:
+- `components/HomeHero.tsx` ← new
+- `app/(root)/(home)/page.tsx` ← modified (now imports HomeHero)
+- `app/globals.css` ← modified (sky-1 token + glassmorphism utilities)
+- `AGENTS.md` ← modified (structure, tokens, timestamp)
+- `CLAUDE.md` ← modified (full refresh — was stale at Push #4)
+- `PUSHLOG.md` ← modified
+
+**Status After Push**: Hero dashboard live with real-time clock. All docs synced. Next milestone: Stream SDK for real-time video/audio.
+
+---
+
+*Last updated: Push #12 — 2026-06-21*
 *Next goal: Stream SDK integration for real-time video/audio*
