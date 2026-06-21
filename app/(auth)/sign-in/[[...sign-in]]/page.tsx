@@ -45,7 +45,7 @@ export default function SignInPage() {
         Styling comes from the `appearance` prop on <ClerkProvider>
         in app/layout.tsx — no need to configure it here.
       */}
-      <SignIn />
+      <SignIn forceRedirectUrl="/" />
     </main>
   );
 }

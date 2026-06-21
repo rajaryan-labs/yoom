@@ -44,6 +44,9 @@ zoom-clone/
 │   ├── globals.css               ← ✅ Tailwind v4 @theme tokens defined
 │   └── layout.tsx                ← ✅ Root layout, ClerkProvider wrapping
 ├── components/
+│   ├── HomeHero.tsx              ← ✅ Live clock hero banner (client)
+│   ├── HomeCard.tsx              ← ✅ Reusable meeting action card
+│   ├── MeetingTypeList.tsx       ← ✅ 4-card action grid (New/Schedule/Recordings/Join)
 │   ├── Navbar.tsx                ← ✅ Full build (logo, avatar, mobile toggle)
 │   ├── MobileNav.tsx             ← ✅ Sheet-based mobile nav drawer
 │   ├── Sidebar.tsx               ← ✅ Fully functional with active route
@@ -70,9 +73,15 @@ zoom-clone/
 
 | Token | Hex | Tailwind Class |
 |---|---|---|
-| `dark-1` | `#1c1f2e` | `bg-dark-1` — Sidebar/card backgrounds |
-| `dark-2` | `#161925` | `bg-dark-2` — App body background |
-| `blue-1` | `#0e78f9` | `bg-blue-1` — Active states / CTA buttons |
+| `dark-1`   | `#1c1f2e` | `bg-dark-1` — Sidebar/card backgrounds |
+| `dark-2`   | `#161925` | `bg-dark-2` — App body background |
+| `blue-1`   | `#0e78f9` | `bg-blue-1` — Active states / CTA buttons |
+| `sky-1`    | `#c9ddff` | `text-sky-1` — Date/time accent text |
+| `sky-2`    | `#ecf0ff` | `text-sky-2` — Light accent |
+| `sky-3`    | `#f5fcff` | `text-sky-3` — Extra light accent |
+| `orange-1` | `#ff742e` | `bg-orange-1` — New Meeting card |
+| `purple-1` | `#830ef9` | `bg-purple-1` — View Recordings card |
+| `yellow-1` | `#f9a90e` | `bg-yellow-1` — Join Meeting card |
 
 ---
 
@@ -104,6 +113,12 @@ zoom-clone/
 - [x] `app/(auth)/sign-in/[[...sign-in]]/page.tsx` — Clerk `<SignIn />` page
 - [x] `app/(auth)/sign-up/[[...sign-up]]/page.tsx` — Clerk `<SignUp />` page
 - [x] `globals.css` — `.flex-center` converted from `@apply` to raw CSS
+
+- [x] `HomeCard.tsx` — reusable meeting action card component
+- [x] `MeetingTypeList.tsx` — 4-card action grid (New Meeting, Schedule, Recordings, Join)
+- [x] New design tokens: `orange-1`, `purple-1`, `yellow-1`, `sky-2`, `sky-3`
+- [x] Auth pages — `forceRedirectUrl="/"` added to `<SignIn />` and `<SignUp />` for reliable post-auth redirect
+- [x] `.gitignore` — added `Notes.txt` exclusion
 
 ### 🔴 Pending
 - [ ] Meeting room functionality
@@ -367,5 +382,35 @@ zoom-clone/
 
 ---
 
-*Last updated: Push #12 — 2026-06-21*
+### Push #13 — 2026-06-21
+**Commit**: `feat: add HomeCard + MeetingTypeList, new color tokens, forceRedirectUrl on auth pages`
+
+**What Changed**:
+- `components/HomeCard.tsx` — new reusable card component; accepts `img`, `title`, `description`, `handleClick`, and `className` props; uses `glassmorphism` icon container and `cn()` for dynamic class merging
+- `components/MeetingTypeList.tsx` — new `"use client"` component; renders a responsive 4-card action grid (New Meeting / Schedule Meeting / View Recordings / Join Meeting); manages `meetingState` with `useState`
+- `app/(root)/(home)/page.tsx` — imported and rendered `<MeetingTypeList />` below `<HomeHero />`
+- `app/globals.css` — added color tokens: `orange-1` (#ff742e), `purple-1` (#830ef9), `yellow-1` (#f9a90e), `sky-2` (#ecf0ff), `sky-3` (#f5fcff)
+- `app/(auth)/sign-in/[[...sign-in]]/page.tsx` — added `forceRedirectUrl="/"` to `<SignIn />` for reliable post-sign-in redirect
+- `app/(auth)/sign-up/[[...sign-up]]/page.tsx` — added `forceRedirectUrl="/"` to `<SignUp />` for reliable post-sign-up redirect
+- `proxy.ts` — reformatted inline comments (style-only, no logic change)
+- `app/layout.tsx` — removed two stray blank lines
+- `.gitignore` — added `Notes.txt` exclusion
+
+**Files Changed**:
+- `components/HomeCard.tsx` ← new
+- `components/MeetingTypeList.tsx` ← new
+- `app/(root)/(home)/page.tsx` ← modified (MeetingTypeList added)
+- `app/globals.css` ← modified (5 new color tokens)
+- `app/(auth)/sign-in/[[...sign-in]]/page.tsx` ← modified (forceRedirectUrl)
+- `app/(auth)/sign-up/[[...sign-up]]/page.tsx` ← modified (forceRedirectUrl)
+- `proxy.ts` ← modified (comment reformatting)
+- `app/layout.tsx` ← modified (blank lines removed)
+- `.gitignore` ← modified (Notes.txt added)
+- `PUSHLOG.md` ← modified
+
+**Status After Push**: Home dashboard now shows the full action card grid. 5 new color tokens available. Auth redirect reliable. Next: Stream SDK for real-time video/audio.
+
+---
+
+*Last updated: Push #13 — 2026-06-21*
 *Next goal: Stream SDK integration for real-time video/audio*

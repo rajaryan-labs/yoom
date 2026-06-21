@@ -34,7 +34,7 @@ export default function SignUpPage() {
 
         Styling is inherited from <ClerkProvider appearance={...}> in app/layout.tsx.
       */}
-      <SignUp />
+      <SignUp forceRedirectUrl="/" />
     </main>
   );
 }

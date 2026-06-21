@@ -146,7 +146,13 @@
   --color-dark-1: #1c1f2e; /* bg-dark-1 → Sidebar, card backgrounds      */
   --color-dark-2: #161925; /* bg-dark-2 → Main app background             */
   --color-blue-1: #0e78f9; /* bg-blue-1 → Active states, CTA buttons      */
-  --color-sky-1: #c9ddff;  /* bg-sky-1  → Date/time accent text            */
+  --color-sky-1: #c9ddff; /* bg-sky-1  → Date/time accent text            */
+  --color-orange-1: #ff742e; /* bg-orange-1  → MeetingTypeList component   */
+  --color-sky-1: #c9ddff;
+  --color-sky-2: #ecf0ff;
+  --color-sky-3: #f5fcff;
+  --color-purple-1: #830ef9;
+  --color-yellow-1: #f9a90e;
 
   /* ── BACKGROUND IMAGES ───────────────────────────────────────────────── */
   /* Naming: --background-image-{name} → generates bg-{name} utility class  */

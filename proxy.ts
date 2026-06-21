@@ -33,12 +33,12 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 // Any route NOT listed here is PUBLIC (no login required).
 // ─────────────────────────────────────────────────────────────────────────────
 const protectedRoutes = createRouteMatcher([
-  "/",              // Dashboard / home
-  "/upcoming",      // Upcoming meetings
-  "/previous",      // Previous meetings
-  "/recordings",    // Recorded meetings
+  "/", // Dashboard / home
+  "/upcoming", // Upcoming meetings
+  "/previous", // Previous meetings
+  "/recordings", // Recorded meetings
   "/personal-room", // User's personal meeting room
-  "/meeting(.*)",   // Any meeting room URL (dynamic ID)
+  "/meeting(.*)", // Any meeting room URL (dynamic ID)
 ]);
 
 // ─────────────────────────────────────────────────────────────────────────────

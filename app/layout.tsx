@@ -48,8 +48,6 @@ export const metadata: Metadata = {
     "Yoom is a modern, real-time video conferencing application designed to replicate the core experience of Zoom. Built on a cutting-edge frontend stack, it features seamless route dynamics, custom theme integration, and high-performance layouts.",
 };
 
-
-
 // ─────────────────────────────────────────────────────────────────────────────
 // ROOT LAYOUT COMPONENT
 //

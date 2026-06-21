@@ -128,6 +128,8 @@ zoom-clone/
 │   └── layout.tsx                ← ✅ Root layout + ClerkProvider
 ├── components/
 │   ├── HomeHero.tsx              ← ✅ "use client" — live clock hero banner
+│   ├── HomeCard.tsx              ← ✅ Reusable meeting action card
+│   ├── MeetingTypeList.tsx       ← ✅ 4-card action grid (client)
 │   ├── Navbar.tsx                ← ✅ Full build (logo, avatar, Clerk auth UI)
 │   ├── MobileNav.tsx             ← ✅ Sheet-based mobile nav drawer
 │   ├── Sidebar.tsx               ← ✅ Fully functional with active route
@@ -157,6 +159,11 @@ zoom-clone/
 | `--color-dark-2` | `#161925` | `bg-dark-2` | App body background |
 | `--color-blue-1` | `#0e78f9` | `bg-blue-1` | Active states, CTA buttons |
 | `--color-sky-1`  | `#c9ddff` | `text-sky-1` | Date/time accent text in hero |
+| `--color-sky-2`  | `#ecf0ff` | `text-sky-2` | Light accent |
+| `--color-sky-3`  | `#f5fcff` | `text-sky-3` | Extra light accent |
+| `--color-orange-1` | `#ff742e` | `bg-orange-1` | New Meeting card |
+| `--color-purple-1` | `#830ef9` | `bg-purple-1` | View Recordings card |
+| `--color-yellow-1` | `#f9a90e` | `bg-yellow-1` | Join Meeting card |
 
 ---
 
@@ -230,4 +237,4 @@ import { sidebarLinks } from "@/constants";
 
 ---
 
-*Last updated: 2026-06-21 — Push #12 | Live clock hero added (`HomeHero.tsx`), `sky-1` color token, glassmorphism utilities*
+*Last updated: 2026-06-21 — Push #13 | HomeCard + MeetingTypeList added, 5 new color tokens (orange-1, purple-1, yellow-1, sky-2, sky-3), forceRedirectUrl on auth pages*
